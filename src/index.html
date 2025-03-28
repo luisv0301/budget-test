@@ -21,6 +21,22 @@
     <div class="controls">
       <button class="rojo">Rojo</button>
       <button class="verde">Verde</button>
+      <div>
+        <button class="normal">Normal</button>
+        <button class="big">Grande</button>
+      </div>
+      <div id="slider-container">
+        <span>Rotation:</span>
+        <input
+          type="range"
+          id="rotation-slider"
+          min="0"
+          max="360"
+          value="0"
+          step="1"
+        />
+        <span id="rotation-value">0°</span>
+      </div>
     </div>
     <canvas class="webgl"></canvas>
     <script type="module" src="./script.js"></script>

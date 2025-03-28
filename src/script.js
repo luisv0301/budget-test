@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import { FBXLoader } from "three/addons/loaders/FBXLoader.js";
 import GUI from "lil-gui";
 
 /**
@@ -13,6 +14,26 @@ const canvas = document.querySelector("canvas.webgl");
 
 // Scene
 const scene = new THREE.Scene();
+
+/*Load model
+const loader = new FBXLoader();
+loader.load(
+  "/model/taquilla-single.fbx",
+  (fbx) => {
+    fbx.scale.setScalar(0.07); // Adjust this value as needed
+    fbx.position.set(4, 6, 0);
+
+    // Add it to the scene
+    scene.add(fbx);
+
+    console.log("el object", fbx);
+  },
+  undefined,
+  function (error) {
+    console.error(error);
+  }
+);
+*/
 
 /**
  * Floor
@@ -42,6 +63,7 @@ const object = new THREE.Mesh(
   })
 );
 object.position.x = 2;
+object.position.y = 1;
 object.receiveShadow = true;
 scene.add(object);
 
@@ -176,6 +198,30 @@ document.querySelector(".verde").addEventListener("click", () => {
 document.querySelector(".rojo").addEventListener("click", () => {
   console.log("rojo");
   object.material.color.set("#ff0000");
+});
+
+//Size
+document.querySelector(".normal").addEventListener("click", () => {
+  console.log("normal");
+  object.scale.set(1, 1, 1);
+});
+
+document.querySelector(".big").addEventListener("click", () => {
+  console.log("big");
+  object.scale.set(1.5, 1.5, 1.5);
+});
+
+//rotation
+const rotationSlider = document.getElementById("rotation-slider");
+const rotationValue = document.getElementById("rotation-value");
+
+rotationSlider.addEventListener("input", function (e) {
+  const degrees = parseInt(e.target.value);
+  rotationValue.textContent = degrees + "°";
+
+  // Convert degrees to radians for Three.js rotation
+  const radians = THREE.MathUtils.degToRad(degrees);
+  object.rotation.y = radians;
 });
 
 /**
